@@ -1,6 +1,7 @@
 'use strict';
 var renderer = require('./lib/renderer');
 var read_info = require('./lib/read-info');
+const exec = require("child_process").execSync;
 
 hexo.config.tid = Object.assign({
   emacs: 'emacs',
@@ -17,7 +18,26 @@ hexo.config.tid = Object.assign({
   debug: false
 }, hexo.config.tid);
 
+function generate_tidhtml() {
+  hexo.log.info("begin generate tidhtml file");
+  var result = exec("cd $HOME/Documents/wiki/main && sh build.sh")
+  hexo.log.info(result.toString('utf-8').trimEnd());
+  hexo.log.info("generate tidhtml done\n")
+}
+
 var Func = renderer.bind(hexo)
 Func.disableNunjucks = true
 hexo.extend.renderer.register('tidhtml', 'html', Func, false);
 hexo.extend.filter.register('before_post_render', read_info);
+hexo.extend.filter.register('after_init', () => {
+  // regenerate tidhtml only if in this mode:
+  //   hexo s
+  //   hexo server
+  //   hexo render
+  //   hexo generator
+  //   hexo g
+  if (process.argv.indexOf('render') > 0 || process.argv.indexOf('generate') > 0 || process.argv.indexOf('g') > 0) {
+    // start emacs server
+    generate_tidhtml();
+  }
+});
