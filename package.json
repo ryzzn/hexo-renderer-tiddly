@@ -1,0 +1,29 @@
+{
+  "author": {
+    "name": "ryzn"
+  },
+  "bugs": {
+    "url": "https://github.com/ryzzn/hexo-renderer-tiddly/issues"
+  },
+  "description": "Hexo renderer for tiddly wiki",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1"
+  },
+  "homepage": "https://github.com/ryzzn/hexo-renderer-tiddly",
+  "keywords": [
+    "hexo",
+    "tiddly"
+  ],
+  "license": "GPL-3.0",
+  "main": "index",
+  "name": "hexo-renderer-tiddly",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coldnew/hexo-renderer-tiddly.git"
+  },
+  "scripts": {
+    "test": "mocha test/index.js"
+  },
+  "version": "0.0.1"
+}
